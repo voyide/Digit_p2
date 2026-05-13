@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties and Visualizations of the Sequence a_b(n)</title>
+    
+    <!-- MathJax for rendering LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+
+    <!-- CSS Styling for Academic/StackExchange Look -->
+    <style>
+        body {
+            font-family: Georgia, "Times New Roman", serif;
+            line-height: 1.6;
+            color: #242729;
+            background-color: #fdfdfd;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 40px 50px;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            border: 1px solid #e1e4e8;
+        }
+        h1, h2, h3 {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #2c3e50;
+            margin-top: 1.5em;
+        }
+        h1 {
+            font-size: 2.2em;
+            border-bottom: 2px solid #eaecef;
+            padding-bottom: 0.3em;
+            margin-top: 0;
+        }
+        h2 {
+            font-size: 1.5em;
+            border-bottom: 1px solid #eaecef;
+            padding-bottom: 0.2em;
+        }
+        p {
+            margin: 1em 0;
+        }
+        ul, ol {
+            margin: 1em 0;
+            padding-left: 2em;
+        }
+        li {
+            margin-bottom: 0.5em;
+        }
+        .math-block {
+            overflow-x: auto;
+            margin: 1.5em 0;
+        }
+        .proof {
+            font-style: italic;
+            margin-top: 1em;
+        }
+        figure {
+            margin: 2em auto;
+            text-align: center;
+            display: block;
+        }
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        figcaption {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 0.8em;
+        }
+        
+        /* Modifiers for inline code and text highlights */
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: #f6f8fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 85%;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                margin: 15px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Properties of the Sequence $a_b(n)$</h1>
+
+    <p>
+        Let $a_b(n)$ be the number of integer tuples $(x_1, x_2, \ldots, x_{k+1})$ where $0 \leq x_i \leq b-1$, such that $|x_i - x_{i+1}| = d_i$ for all $i$, where $(d_1, d_2, \ldots, d_k)$ are digits of $n$ in base $b$.
+    </p>
+
+    <h2>1. Normal Form Definitions</h2>
+    <p>
+        $\left\langle\begin{array}{c}a_1 \\ a_2\end{array}\right\rangle_b$ is in 'normal form' when:
+    </p>
+    <ul>
+        <li>$a_1 \leq a_2 \leq b-1$</li>
+        <li>$0 \leq a_1\leq a_2$</li>
+        <li>$b \geq 1$, where $a_1, a_2 \in \{0, 1, 2, 3, \ldots\}$</li>
+    </ul>
+
+    <h2>2. Rules to convert $\left\langle\begin{array}{c}a_1 \\ a_2\end{array}\right\rangle_b$ into normal form:</h2>
+    <ul>
+        <li>$\left\langle\begin{array}{c}a_1 \\ a_2\end{array}\right\rangle_b = \left\langle\begin{array}{c}0\\a_2\end{array}\right\rangle_b$ if $a_1<0$ and $0 \leq a_2 \leq b-1$</li>
+        <li>$\left\langle\begin{array}{c}a_1 \\ a_2\end{array}\right\rangle_b = \left\langle\begin{array}{c}a_1 \\ b-1\end{array}\right\rangle_b$ if $a_2 > b-1$ and $0 \leq a_1 \leq b-1$</li>
+        <li>$\left\langle\begin{array}{c}a_1 \\ a_2\end{array}\right\rangle_b = \left\langle\begin{array}{c}0\\ b-1\end{array}\right\rangle_b$ if $a_1 < 0$ and $a_2 > b-1$</li>
+        <li>$\left\langle\begin{array}{c}a_1 \\ a_2\end{array}\right\rangle_b = \langle\rangle$ if $a_1 > a_2$</li>
+        <li>$\left\langle\begin{array}{c}a_1 \\ a_2\end{array}\right\rangle_b = \langle\rangle$ if $a_1, a_2 < 0$ or $a_1, a_2 > b-1$</li>
+    </ul>
+
+    <h2>3. Normal Form for Sequences</h2>
+    <p>
+        $\left\langle a_1, a_2, \ldots, a_k\right\rangle_b$ where $a_i\in \{0, 1, 2, 3, \ldots\}$ is in 'normal form' when $0 \leq a_i \leq b-1$ for $i \in\{1,2,3, \ldots, k\}$.
+    </p>
+
+    <h2>4. Rule to convert $\left\langle a_1, a_2, \ldots, a_k\right\rangle_b$ into normal form:</h2>
+    <p>Remove all $a_i$ which are $<0$ or $> b-1$.</p>
+
+    <h2>5. Operations</h2>
+    <ul>
+        <li>$\left\langle a_1\right\rangle_b=\left\langle\begin{array}{c}a_1 \\ a_1\end{array}\right\rangle_b$</li>
+        <li>$\left\langle a_1\right\rangle_b + \left\langle a_2\right\rangle_b + \ldots + \left\langle a_k\right\rangle_b = \left\langle a_1, a_2, \ldots, a_k\right\rangle_b$</li>
+        <li>$\left\langle a_1\right\rangle_b + \left\langle a_1+1\right\rangle_b + \ldots + \left\langle a_2\right\rangle_b = \left\langle\begin{array}{c}a_1 \\ a_2\end{array}\right\rangle_b$</li>
+        <li>$\left\langle a_1\right\rangle_b + \ldots(m\text{ times})= m\left\langle a_1\right\rangle_b$</li>
+        <li>$m\left\langle a_1, a_2, \ldots, a_k\right\rangle_b=m\left\langle a_1\right\rangle_b + m\left\langle a_2\right\rangle_b + \ldots + m\left\langle a_k\right\rangle_b$</li>
+        <li>$\left\langle a_1\right\rangle_b - \left\langle a_1\right\rangle_b = \langle\rangle$</li>
+        <li>$\left\langle a_1\right\rangle_b \pm \langle\rangle = \left\langle a_1\right\rangle_b$</li>
+        <li>$m\left[a\left\langle\begin{array}{c}a_1 \\ a_2\end{array}\right\rangle_b \pm c\left\langle\begin{array}{c}c_1 \\ c_2\end{array}\right\rangle_b \pm \ldots\right] = ma\left\langle\begin{array}{c}a_1 \\ a_2\end{array}\right\rangle_b \pm mc\left\langle\begin{array}{c}c_1 \\ c_2\end{array}\right\rangle_b \pm \ldots$</li>
+    </ul>
+
+    <h2>6. Functions</h2>
+    <ul>
+        <li>$\left\langle\begin{array}{l}a_1 \\ a_2\end{array}\right\rangle_b(0)=\left\langle\begin{array}{l}a_1 \\ a_2\end{array}\right\rangle_b$</li>
+        <li>$\left\langle a_1, a_2, \ldots, a_k\right\rangle_b(0)=\left\langle a_1, a_2, \ldots, a_k\right\rangle_b$</li>
+        <li>$\left\langle\begin{array}{l}a_1 \\ a_2\end{array}\right\rangle_b(m)=\left\langle\begin{array}{l}a_1-m \\ a_2-m\end{array}\right\rangle_b+\left\langle\begin{array}{l}a_1+m \\ a_2+m\end{array}\right\rangle_b$</li>
+        <li>$\left\langle a_1, a_2, \ldots, a_k\right\rangle_b(m)=\left\langle a_1-m, a_2-m, \ldots, a_k-m\right\rangle_b + \left\langle a_1+m, a_2+m, \ldots, a_k+m\right\rangle_b$</li>
+        <li>$\left\langle\begin{array}{l} a_1 \\ a_2 \end{array}\right\rangle_b\left(n_1, n_2, \ldots, n_m\right) = \left\langle\begin{array}{l} a_1-n_1 \\ a_2-n_1 \end{array}\right\rangle_b\left(n_2, n_3, \ldots, n_m\right)+\left\langle\begin{array}{l} a_1+n_1 \\ a_2+n_1 \end{array}\right\rangle_b\left(n_2, n_3, \ldots, n_m\right)$</li>
+        <li>$\left\langle a_1, a_2, \ldots, a_k\right\rangle_b\left(n_1, n_2, \ldots, n_m\right) = \left\langle a_1-n_1, a_2-n_1, \ldots, a_k-n _1\right\rangle_b\left( n_2, n_3, \ldots, n_m \right) + \left\langle a_1+n_1, a_2+n_1, \ldots, a_k+n _1\right\rangle_b\left( n_2, n_3, \ldots, n_m \right)$</li>
+    </ul>
+
+    <h2>7. Value (calculated only in normal form)</h2>
+    <ul>
+        <li>$|\langle\rangle|=0$</li>
+        <li>$|\left\langle\begin{array}{l}a_1 \\ a_2\end{array}\right\rangle_b| = a_2-a_1+1$ </li>
+        <li>$|\left\langle a_1, a_2, \ldots, a_k\right\rangle_b|=k$</li>
+        <li>$|\left\langle a_1\right\rangle_b+\left\langle a_2\right\rangle_b+\ldots+\left\langle a_k\right\rangle_b| = |\left\langle a_1\right\rangle_b|+|\left\langle a_2\right\rangle_b|+\ldots+|\left\langle a_k\right\rangle_b|$</li>
+        <li>$|\left\langle\begin{array}{l} a_1 \\ a_2 \end{array}\right\rangle_b\left(n_1, n_2, \ldots, n_m\right)| = |\left\langle\begin{array}{l} a_1-n_1 \\ a_2-n_1 \end{array}\right\rangle_b\left(n_2, n_3, \ldots, n_m\right)|+|\left\langle\begin{array}{l} a_1+n_1 \\ a_2+n_1 \end{array}\right\rangle_b\left(n_2, n_3, \ldots, n_m\right)|$</li>
+        <li>$|\left\langle a_1, a_2, \ldots, a_k\right\rangle_b\left(n_1, n_2, \ldots, n_m\right)| = |\left\langle a_1-n_1, a_2-n_1, \ldots, a_k-n _1\right\rangle_b\left( n_2, n_3, \ldots, n_m \right)| + |\left\langle a_1+n_1, a_2+n_1, \ldots, a_k+n _1\right\rangle_b\left( n_2, n_3, \ldots, n_m \right)|$</li>
+    </ul>
+
+    <h2>Evaluating $a_b(n)$ and Parity Properties</h2>
+    <p>
+        $a_b(n)$ is equal to $|\left\langle\begin{array}{l} 0 \\ b-1 \end{array}\right\rangle_b\left(d_1, d_2, \ldots, d_k\right)|$. 
+    </p>
+    <p>
+        For even base $b$, $a_b(n)$ is even for all $n$. That's because solutions come in pairs: $(x_1,x_2,\ldots,x_{k+1})$ is paired with $(b-1-x_1,b-1-x_2,\ldots,b-1-x_{k+1})$, and for them to be distinct, $b-1-x_i \neq x_i$ for all $i$, or $b -1 \neq 2x_i$, hence $b$ can't be odd in this case. But the only time this happens in odd bases is when all $x_i$ are equal to $(b-1)/2$, but that implies it can only happen in the case where all $d_i$ are 0, and that's only ever the case when $n=0$. So we can say that $a_b(n)$ is always even for $n>0$ and for even bases it's even for all $n$.
+    </p>
+
+    <p>We'll prove that:</p>
+    <div class="math-block">
+        $$|\left\langle x \right\rangle_b (d) + \left\langle x \right\rangle_b (b-d)| = 2$$ 
+    </div>
+
+    <p class="proof">
+        <strong>Proof:</strong> This evaluates to 
+        $$|\left\langle x+d \right\rangle_b + \left\langle x-d \right\rangle_b + \left\langle x-d+b \right\rangle_b + \left\langle x+d-b \right\rangle_b|$$
+    </p>
+
+    <p>
+        Each term's value is 1 if it is valid and 0 if invalid.
+    </p>
+    <p>
+        $\left\langle x+d \right\rangle_b$ can be in the range $[0,2b-2]$ and obviously if $\left\langle x+d \right\rangle_b$ is in the range $[r_1,r_2]$ then $\left\langle x+d-b \right\rangle_b$ is in the range $[r_1-b,r_2-b]$. 
+    </p>
+    <p>
+        $\left\langle x+d \right\rangle_b$ is valid when it's in the range $[0,b-1]$ and invalid when it's in the range $[b,2b-2]$. 
+    </p>
+    <p>
+        When $\left\langle x+d \right\rangle_b$ is in $[0,b-1]$, i.e., when it's valid, then $\left\langle x+d-b\right\rangle_b$ is in the range $[-b,-1]$. Also $\left\langle x+d-b\right\rangle_b$ is in the range $[-b,b-1]$ and whenever it is invalid, i.e., whenever it's in range $[-b,-1]$, then $\left\langle x+d \right\rangle_b$ is in the range $[0,b-1]$ or valid.
+    </p>
+    
+    <p>So, we notice:</p>
+    <p>
+        $\left\langle x+d \right\rangle_b$ is valid $\iff$ $\left\langle x+d-b \right\rangle_b$ is invalid.
+    </p>
+    <p>Similarly we can conclude:</p>
+    <p>
+        $\left\langle x-d \right\rangle_b$ is valid $\iff$ $\left\langle x-d+b \right\rangle_b$ is invalid.
+    </p>
+    <p>
+        This means that the following is true when $d \in \{1,2,3,\ldots,b-1\}$:
+    </p>
+    <div class="math-block">
+        $$|\left\langle x+d \right\rangle_b + \left\langle x+d-b \right\rangle_b| = 1 $$ 
+        $$ |\left\langle x-d \right\rangle_b + \left\langle x-d+b \right\rangle_b|=1$$
+    </div>
+    <p><em>Hence proved.</em></p>
+
+    <p>
+        The above theorem directly implies that
+    </p>
+    <div class="math-block">
+        $$|\left\langle x_1,\ldots,x_p\right\rangle_b(d)|+|\left\langle x_1,\ldots,x_p\right\rangle_b(b-d)| = 2p$$
+    </div>
+    <p>
+        When $\left\langle x_1,x_2,\ldots,x_p\right\rangle_b$ is in normal form, $d \in \{1,2,3,\ldots,b-1\}$, and $p$ can be any natural number, therefore this is true in general.
+    </p>
+
+    <p>Now consider</p>
+    <div class="math-block">
+        $$|\left\langle\begin{array}{l} 0 \\ b-1 \end{array}\right\rangle_b\left(d_1,\ldots,d_{k-1}, d_k\right)|$$
+    </div>
+    <p>and</p>
+    <div class="math-block">
+        $$|\left\langle\begin{array}{l} 0 \\ b-1 \end{array}\right\rangle_b\left(d_1,\ldots,d_{k-1}, b-d_k\right)|$$
+    </div>
+    <p>
+        where $d_k$ isn't 0, $n=d_1\ldots d_{k-1}d_k$ and $m=d_1\ldots d_{k-1}(b-d_k)$.
+    </p>
+    <p>
+        When we evaluate both of these at $d_1$ all the way up to $d_{k-1}$ then the resulting collection of normal forms would be exactly the same. That implies 
+    </p>
+    <div class="math-block">
+        $$a_b(n) + a_b(m) = 2a_b(d_1 d_2 \ldots d_{k-1})$$
+    </div>
+    <p>
+        and when $n,m, d_1 d_2 \ldots d_{k-1} \neq 0$ we can conclude that 
+    </p>
+    <div class="math-block">
+        $$a_b(n) \equiv a_b(m) \pmod 4$$ 
+    </div>
+
+    <p>
+        It can also be proven that 
+    </p>
+    <div class="math-block">
+        $$|\left\langle\begin{array}{l} 0 \\ b-1 \end{array}\right\rangle_b\left(d_1,\ldots, d_k\right)| = 2 |\left\langle\begin{array}{l} 0 \\ b-1-d_1\end{array}\right\rangle_b\left(d_2,\ldots, d_k\right)|$$
+    </div>
+    <p>And obviously whenever any $d_i=0$ it can be skipped.</p>
+
+    <h2>Visualizing Parity in Base 20</h2>
+    <p>
+        I'll use all this to show how a pattern arises when the first $b^2$ terms of $a_b(n)$ are arranged on a $10 \times 10$ grid and highlighted $\pmod 4$.
+    </p>
+    <p>
+        The first $b^2$ terms would be of the form $d_1 d_2$, where $d_1$ is 0 when it's a single digit number. Now 
+    </p>
+    <div class="math-block">
+        $$a_b(d_1 d_2) = |\left\langle\begin{array}{l} 0 \\ b-1 \end{array}\right\rangle_b\left(d_1,d_2\right)|$$ 
+    </div>
+    <p>Which equals</p>
+    <div class="math-block">
+        $$2|\left\langle\begin{array}{l} 0 \\ b-1-d_1 \end{array}\right\rangle_b\left(d_2\right)|$$
+    </div>
+    <p>
+        when $n$ is a two digit number (when $n$ is one digit that case can be dealt with later). 
+    </p>
+    <p>
+        Now the parity (mod 2) of the term 
+    </p>
+    <div class="math-block">
+        $$|\left\langle\begin{array}{l} 0 \\ b-1-d_1 \end{array}\right\rangle_b\left(d_2\right)|$$
+    </div>
+    <p>
+        would determine $a_b(n) \pmod 4$. 
+    </p>
+    <p>
+        When we evaluate this we get 
+    </p>
+    <div class="math-block">
+        $$|\left\langle\begin{array}{l} 0 \\ b-1-d_1-d_2 \end{array}\right\rangle_b + \left\langle\begin{array}{l} 0 \\ b-1-d_1+d_2 \end{array}\right\rangle_b|$$
+    </div>
+    <p>
+        Let's denote the first term by $t_1$ and the second term by $t_2$.
+    </p>
+    <p>
+        In $t_1$ there could be two cases, either $b-1-d_1-d_2 \geq 0$ or $b-1-d_1-d_2 < 0$. This implies, either $b-1 \geq d_1+d_2$ or $b-1 < d_1+d_2$.
+    </p>
+    <p>
+        These two cases separate the $b^2$ grid into two distinct regions. Let's call these $R_1$ and $R_2$ respectively. Now in case $R_1$ the value of $t_1$ is $b-d_1-d_2$ and in case $R_2$ its value is 0. 
+    </p>
+    <p>
+        If we only arrange the values of $t_1$ for each cell in the $b^2$ grid and highlight cells mod 2 as $\equiv 0$ would be black and $\equiv 1$ would be white, visually the regions look like this, for base 20:
+    </p>
+
+    <figure>
+        <img src="t1.png" alt="Base 20 grid for t1 modulo 2">
+        <figcaption>Base 20 grid for $t_1 \pmod 2$</figcaption>
+    </figure>
+
+    <p>Analysing $t_2$ we get:</p>
+    <p>
+        Either $d_1 < d_2$ or $d_1 \geq d_2$ and the values in the regions would be $b-d_1$ and $b-d_2$ respectively. So just like before we use the inequality to determine the two distinct regions and then in each region the values would be plotted mod 2 with their respective formula.
+    </p>
+    <p>
+        If we choose base 20, the grid for $t_2$ is this:
+    </p>
+
+    <figure>
+        <img src="t2.png" alt="Base 20 grid for t2 modulo 2">
+        <figcaption>Base 20 grid for $t_2 \pmod 2$</figcaption>
+    </figure>
+
+    <p>
+        And since $a_b(n)$ is the sum of these two, we can add these two grids visually! Say B is black and W is white, then due to addition mod 2 we would color the cells of the 'sum grid' as $B+B= W+W = B$ and $B+W=W+B=W$.
+    </p>
+    <p>If we do that we get this:</p>
+
+    <figure>
+        <img src="sum.png" alt="Sum of t1 and t2 grids">
+        <figcaption>Combined Grid: $t_1 + t_2 \pmod 2$</figcaption>
+    </figure>
+
+    <p>
+        Of course we need to account for when $d_1$ or $d_2$ is 0. But that's trivial. Similarly, any range of terms can be analysed.
+    </p>
+
+</div>
+
+</body>
+</html>
